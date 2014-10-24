@@ -1,8 +1,8 @@
 {
-  "name": "8track: Github Issue Manager",
-  "version": "0.0.1",
+  "name": "8track: Github Issue Template Manager",
+  "version": "0.0.2",
   "manifest_version": 2,
-  "description": "Create and manage github issue markdown templates, set the standard for your organization issues.",
+  "description": "Create and manage github issue markdown templates, set the standard for your organizations issues.",
   "homepage_url": "http://github.com/wired8/8track",
   "icons": {
     "16": "icons/icon16.png",
@@ -17,7 +17,7 @@
   "options_page": "src/options_custom/index.html",
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "8track: Github Issue Manager",
+    "default_title": "8track: Github Issue Template Manager",
     "default_popup": "src/browser_action/browser_action.html"
   },
   "permissions": [
@@ -27,7 +27,7 @@
     "tabs"
   ],
   "omnibox": {
-    "keyword": "extensionizr"
+    "keyword": "8track"
   },
   "content_scripts": [
     {

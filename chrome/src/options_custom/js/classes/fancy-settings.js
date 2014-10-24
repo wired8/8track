@@ -39,7 +39,13 @@
             } else {
                 tab = this.tabs[params.tab];
             }
-            
+
+            if (this.tab.activeBundle.tab.innerHTML.toLocaleLowerCase().indexOf(window.location.hash.replace('#', '')) == -1) {
+              this.tab.activeBundle.deactivate();
+            } else {
+              this.tab.activeBundle.activate();
+            }
+
             // Create group if it doesn't exist already
             if (tab.groups[params.group] === undefined) {
                 tab.groups[params.group] = {};
@@ -139,7 +145,7 @@
             });
             document.body.removeClass("measuring");
         }
-        
+
         if (callback !== undefined) {
             callback(settings);
         }

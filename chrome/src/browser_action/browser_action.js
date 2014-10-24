@@ -1,12 +1,42 @@
-var STORAGE_KEY = 'store.settings.github_urls';
+var REPO_KEY = 'store.settings.github_urls';
 var MARKDOWN_KEY = 'store.settings.markdown';
 
 $(function() {
-  if (localStorage[STORAGE_KEY] === undefined) {
-    localStorage[STORAGE_KEY] = '';
+  if (localStorage[REPO_KEY] === undefined) {
+    localStorage[REPO_KEY] = '';
+  }
+  if (localStorage[MARKDOWN_KEY] === undefined) {
+    localStorage[MARKDOWN_KEY] = '';
   }
 
-  var githubRepos = $.trim(localStorage[STORAGE_KEY]).replace(/\"/g, '').replace(/\\n/g, "\n").split("\n");
+  if (localStorage.getItem(REPO_KEY) === null || $.trim(localStorage.getItem(REPO_KEY).replace(/\"/g, '')) === '') {
+    var url = "src/options_custom/index.html#github";
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      // Redirect the current tab if one is found, otherwise create a new one
+      if (tabs.length) {
+        chrome.tabs.update(tabs[0].id, {url: url});
+      } else {
+        chrome.tabs.create({url: url});
+      }
+    });
+    return;
+  }
+
+  if (localStorage.getItem(MARKDOWN_KEY) === null || $.trim(localStorage.getItem(MARKDOWN_KEY).replace(/\"/g, '')) === '') {
+    var url = "src/options_custom/index.html#issue";
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      // Redirect the current tab if one is found, otherwise create a new one
+      if (tabs.length) {
+        chrome.tabs.update(tabs[0].id, {url: url});
+      } else {
+        chrome.tabs.create({url: url});
+      }
+    });
+
+    return;
+  }
+
+  var githubRepos = $.trim(localStorage[REPO_KEY]).replace(/\"/g, '').replace(/\\n/g, "\n").split("\n");
   var markdown = encodeURIComponent(localStorage[MARKDOWN_KEY].replace(/\"/g, '').replace(/\\n/g, "\n"));
   var title = encodeURIComponent('New Issue');
 

@@ -44,7 +44,9 @@
             var bundle = new Bundle(this);
             bundle.tab.inject(this.tabContainer);
             bundle.content.inject(this.tabContentContainer);
-            if (!this.activeBundle) { bundle.activate(); }
+            if (!this.activeBundle) {
+              bundle.activate();
+            }
             return bundle;
         }
     });

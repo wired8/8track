@@ -41,6 +41,7 @@
             }
             
             this.params.searchString = this.params.searchString.toLowerCase();
+
         },
         
         "addEvents": function () {
