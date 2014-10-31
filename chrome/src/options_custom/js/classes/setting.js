@@ -30,8 +30,11 @@
             
             this.createDOM();
             this.setupDOM();
-            this.addEvents();
-            
+
+            if (this.params.event !== undefined && this.params.event !== false) {
+              this.addEvents();
+            };
+
             if (this.params.id !== undefined) {
                 this.element.set("id", this.params.id);
             }
@@ -188,6 +191,7 @@
             
             this.element = new Element("input", {
                 "class": "setting element text",
+                "id": this.params.id,
                 "type": "text"
             });
             
@@ -218,6 +222,7 @@
         },
         
         "addEvents": function () {
+            if (this.params.event !== undefined && this.params.event === false) return;
             var change = (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
@@ -496,7 +501,7 @@
     Bundle.ListBox = new Class({
         // label, options[{value, text}]
         // action -> change
-        "Extends": Bundle.PopupButton,
+        //"Extends": Bundle.PopupButton,
         
         "createDOM": function () {
             this.bundle = new Element("div", {
@@ -531,6 +536,45 @@
             return (this.element.get("value") || undefined);
         }
     });
+
+    Bundle.Select = new Class({
+      // label, options[{value, text}]
+      // action -> change
+      "Extends": Bundle.PopupButton,
+
+      "createDOM": function () {
+        this.bundle = new Element("div", {
+          "class": "setting bundle list-box"
+        });
+
+        this.container = new Element("div", {
+          "class": "setting container list-box"
+        });
+
+        this.element = new Element("select", {
+          "class": "setting element list-box",
+          "id": this.params.id
+        });
+
+        this.label = new Element("label", {
+          "class": "setting label list-box"
+        });
+
+        if (this.params.options === undefined) { return; }
+        this.params.options.each((function (option) {
+          this.params.searchString += (option.text || option.value) + "•";
+
+          (new Element("option", {
+            "value": option.value,
+            "text": option.text || option.value
+          })).inject(this.element);
+        }).bind(this));
+      },
+
+      "get": function () {
+        return (this.element.get("value") || undefined);
+      }
+    });
     
     Bundle.Textarea = new Class({
         // label, text, value
@@ -547,7 +591,8 @@
             });
             
             this.element = new Element("textarea", {
-                "class": "setting element textarea"
+                "class": "setting element textarea",
+                "id": this.params.id
             });
             
             this.label = new Element("label", {
@@ -576,6 +621,7 @@
         },
         
         "addEvents": function () {
+            if (this.params.event !== undefined && this.params.event === false) return;
             var change = (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
@@ -696,6 +742,7 @@
                 "slider": "Slider",
                 "popupButton": "PopupButton",
                 "listBox": "ListBox",
+                "select": "Select",
                 "radioButtons": "RadioButtons"
             };
             

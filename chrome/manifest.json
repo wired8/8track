@@ -1,6 +1,6 @@
 {
   "name": "8track: Github Issue Template Manager",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "manifest_version": 2,
   "description": "Create and manage github issue markdown templates, set the standard for your organizations issues.",
   "homepage_url": "http://github.com/wired8/8track",

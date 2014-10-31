@@ -16,17 +16,21 @@ this.i18n = {
       "en": "Save",
       "de": "Save"
     },
+    "remove": {
+      "en": "Remove",
+      "de": "Remove"
+    },
     "repository": {
       "en": "Repositories",
       "de": "Repositories"
     },
-    "repository-help": {
-      "en": "Enter each organization repository on a separate line. \nFormat:  Organizations/repository \nExample: wired8/8track",
-      "de": "Enter each organization repository on a separate line, \nFormat:  Organizations/repository \nExample: wired8/8track"
+    "repo-name": {
+      "en": "E.g. wired8/8track",
+      "de": "E.g. wired8/8track"
     },
     "form": {
-      "en": "Issue Form",
-      "de": "Issue Form"
+      "en": "Templates",
+      "de": "Templates"
     },
     "markdown": {
       "en": "Markdown",
@@ -35,5 +39,21 @@ this.i18n = {
     "markdown-help": {
       "en": "Create your GitHub issue markdown",
       "de": "Create your GitHub issue markdown"
+    },
+    "template": {
+      "en": "Select a Template",
+      "de": "Template"
+    },
+    "repository-help": {
+      "en": "Select a Repository",
+      "de": "Select a Repository"
+    },
+    "template-name": {
+      "en": "Template Name",
+      "de": "Template"
+    },
+    "default": {
+      "en": "Default",
+      "de": "Default"
     }
 };

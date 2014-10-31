@@ -11,6 +11,15 @@ this.manifest = {
             "text": i18n.get("repository-help")
         },
         {
+          "tab": i18n.get("form"),
+          "group": i18n.get("markdown"),
+          "name": "markdown",
+          "type": "listBox",
+          "label": i18n.get("markdown-help"),
+          "options":
+            [{text:"hot", value: "Hot and yummy"}]
+        },
+        {
             "tab": i18n.get("form"),
             "group": i18n.get("markdown"),
             "name": "markdown",
