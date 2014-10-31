@@ -1,15 +1,10 @@
-var REPO_KEY = 'store.settings.github_urls';
-var MARKDOWN_KEY = 'store.settings.markdown';
-
+debugger;
 $(function() {
-  if (localStorage[REPO_KEY] === undefined) {
-    localStorage[REPO_KEY] = '';
-  }
-  if (localStorage[MARKDOWN_KEY] === undefined) {
-    localStorage[MARKDOWN_KEY] = '';
-  }
 
-  if (localStorage.getItem(REPO_KEY) === null || $.trim(localStorage.getItem(REPO_KEY).replace(/\"/g, '')) === '') {
+  var store = new Store("settings");
+  var github = store.get('github');
+
+  if (github === null) {
     var url = "src/options_custom/index.html#github";
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       // Redirect the current tab if one is found, otherwise create a new one
@@ -22,31 +17,19 @@ $(function() {
     return;
   }
 
-  if (localStorage.getItem(MARKDOWN_KEY) === null || $.trim(localStorage.getItem(MARKDOWN_KEY).replace(/\"/g, '')) === '') {
-    var url = "src/options_custom/index.html#issue";
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      // Redirect the current tab if one is found, otherwise create a new one
-      if (tabs.length) {
-        chrome.tabs.update(tabs[0].id, {url: url});
-      } else {
-        chrome.tabs.create({url: url});
-      }
-    });
+  var address = JSON.parse(github).repos.default;
+  var templates = JSON.parse(github).templates;
 
-    return;
-  }
-
-  var githubRepos = $.trim(localStorage[REPO_KEY]).replace(/\"/g, '').replace(/\\n/g, "\n").split("\n");
-  var markdown = encodeURIComponent(localStorage[MARKDOWN_KEY].replace(/\"/g, '').replace(/\\n/g, "\n"));
-  var title = encodeURIComponent('New Issue');
-
-  for (var i = 0, path, user, repo, href; i < githubRepos.length; i++) {
-    path = githubRepos[i].split('/');
+  for (var key in templates) {
+    var title =  encodeURIComponent('New ' + key);
+    var body = encodeURIComponent(templates[key]);
+    path = address.split('/');
     user = path[0];
     repo = path[1];
-    href = 'https://github.com/' + path[0] + '/' + path[1] + '/issues/new?title=' + title + '&body=' + markdown;
+
+    href = 'https://github.com/' + address + '/issues/new?title=' + title + '&body=' + body;
     $('#repos').append('<li>' +
-        '<a href="' + href + '">' + user + '/<strong>' + repo + '</strong></a>' +
+        '<a href="' + href + '">' + user + '/<strong>' + key + '</strong></a>' +
         '</li>');
   }
   $('#repos a').click(function(e) {
