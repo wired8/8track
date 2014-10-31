@@ -39,11 +39,12 @@
             } else {
                 tab = this.tabs[params.tab];
             }
-
-            if (this.tab.activeBundle.tab.innerHTML.toLocaleLowerCase().indexOf(window.location.hash.replace('#', '')) == -1) {
-              this.tab.activeBundle.deactivate();
-            } else {
-              this.tab.activeBundle.activate();
+            if (this.tab.activeBundle) {
+              if (this.tab.activeBundle.tab.innerHTML.toLocaleLowerCase().indexOf(window.location.hash.replace('#', '')) == -1) {
+                this.tab.activeBundle.deactivate();
+              } else {
+                this.tab.activeBundle.activate();
+              }
             }
 
             // Create group if it doesn't exist already
